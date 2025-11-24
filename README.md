@@ -123,4 +123,61 @@ Route::get('/admin/{id}', function ($id) {
 ```
 Testing pada URL kalian bisa test secara bebas -> `/admin/1` ataupun angka selain 1, bisa text juga
 
-## 2.
+## 2. Blade and Blade Directive, Layout and Slots, dan Components, Attributes and Props
+lanjut materi basic Blade dan apa itu Bladde Directive. Berikut penjelasannya
+
+- Blade adalah sebuah template enginee bawaan untuk memudahkan pengelolaan tampilan, serta memudahkan menuliskan kode HTML dan PHP secara gabung
+- Blade directive adalah perintah untuk mengelola percabangan atau perulangan, yang umum digunakan seperti :
+  - `@if | @else | @endif` : perintah untuk situasi kondisional atau percabangan
+  - `@foreach | @endforeach` : perintah untuk perulangan array atau korelasi data
+
+Pada praktik koding nya bisa seperti ini :
+```bash
+routes/web.php
+
+Route::get('/about', function () {
+    // return view('about'); // --> basic
+
+    $data = 'Rizky Wahyudi';
+    $umur = 19;
+    return view('about')
+        ->with('data', $data)
+        ->with('umur', $umur);
+});
+
+resources/views/about.blade.php
+<h1>Ini halaman testing about</h1>
+    <p>Halo, ini {{ $data }}, dan umurnya {{ $umur }}</p> <!-- get nya menggunakan cara seperti ini, panggil key nya -->
+    <!-- menggunakan if else directive -->
+    @if ($umur > 19)
+    <p>Kamu sudah dewasa dan bisa memulai karir</p>
+    @else
+    <p>Kamu masih dibawah kata dewasa</p>
+    @endif
+```
+
+dan jika penggunaan foreach seperti ini :
+```bash
+routes/web.php
+
+Route::get('/admin', function () {
+    $data_admin = [
+        ['id' => "001", 'name' => "admin1", 'status' => true],
+        ['id' => "002", 'name' => "admin2", 'status' => true],
+        ['id' => "003", 'name' => "admin3", 'status' => false],
+    ];
+
+    return view('admin.home')->with('administrator', $data_admin);
+});
+
+resources/views/about.blade.php
+<h1>Ini home page admin</h1>
+    <ul>
+        <!-- menggunakan foreach directive -->
+        @foreach ( $administrator as $access )
+        <li>{{ $access['id'] }} - {{ $access['name'] }}</li>
+        @endforeach
+    </ul>
+```
+
+

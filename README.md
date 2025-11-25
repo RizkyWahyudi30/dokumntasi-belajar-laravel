@@ -223,6 +223,9 @@ Jadi, kita pada file welcome, kita bisa menghapus struktur dasar HTML, dan mengg
 ```bash
 layout.blade.php
 
+---- tambahkan ini di paling atas / diatar kode html nya
+@props ['footer']
+
 <main>
     {{ $slot }}
 </main>
@@ -247,3 +250,4 @@ welcome.blade.php
 </x-layout>
 ```
 Jadi bisa seperti itu. 
+

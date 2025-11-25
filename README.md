@@ -180,4 +180,70 @@ resources/views/about.blade.php
     </ul>
 ```
 
+Selanjutnya, materi Layout dan slots. Materi ini berfungsi untuk mempermudahkan kita untuk membuat bagian bagian yang tampil di dalam view website, tetapi kita tidak membuat nya satu persatu di setiap file.
 
+Kita bisa membuat folder baru di dalam views `/views/components/...` dan kita bisa membuat file bernama `layout.blade.php` 
+
+Berikut demonstrasi nya :
+```bash
+/components/layout.blade.php
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <nav>
+        <div>
+            <a href="/">Home</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/admin">Administrator</a>
+        </div>
+    </nav>
+
+    <main>
+        {{ $slot }}
+    </main>
+</body>
+</html>
+
+------------------------------------------------------------
+
+/views/welcome.blade.php
+
+<x-layout>
+    <h1>welcome</h1>
+</x-layout>
+```
+Jadi, kita pada file welcome, kita bisa menghapus struktur dasar HTML, dan menggantinya dengan tag `<x-layout>` dan bisa isikan seperti itu. `$slot` pada layout.blade.php berguna untuk menggunakan metode nya, jika kita ingin membuat footer, kita bisa membuat seperti ini :
+```bash
+layout.blade.php
+
+<main>
+    {{ $slot }}
+</main>
+
+------ tambah ini ------
+<footer>
+    Ini adalah footer dari page: <span>{{ $footer }}</span>
+</footer>
+
+--------------------------------------------
+
+welcome.blade.php
+
+<x-layout>
+    <h1>welcome</h1>
+
+
+    -------- tambah ini --------
+    <x-slot:footer>
+        Home page
+    </x-slot:footer>
+</x-layout>
+```
+Jadi bisa seperti itu. 
